@@ -18,6 +18,7 @@ const bot = new TelegramBot(TOKEN, {webHook: {
 app.use(express.json())
 
 app.post(`/api/${TOKEN}`, (req, res) =>{
+    console.log(req.body)
     bot.processUpdate(req.body);
     res.sendStatus(200);
 });
@@ -27,7 +28,7 @@ app.listen(PORT, () => {
     bot.setWebHook(`${URL}/api/${TOKEN}`)
 })
 
-cron.schedule('30 * * * *', async () => {
+cron.schedule('*/30 * * * *', async () => {
     try {
         const response = await axios.get(`https://www.rada.zp.ua/pozdravleniya/pozdravleniya-s-dnem-rozhdeniya/s-dnem-rozhdeniya-svoimi-slovami`)
         const $ = cheerio.load(response.data)
