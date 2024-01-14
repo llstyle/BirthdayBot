@@ -29,7 +29,7 @@ app.listen(PORT, () => {
     bot.setWebHook(`${URL}/api/${TOKEN}`)
 })
 
-cron.schedule('*/15 * * * *', async () => {
+cron.schedule('0 * * * *', async () => {
     try {
         const response = await axios.get(`https://www.rada.zp.ua/pozdravleniya/pozdravleniya-s-dnem-rozhdeniya/s-dnem-rozhdeniya-svoimi-slovami`)
         const $ = cheerio.load(response.data)
