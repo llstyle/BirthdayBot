@@ -11,16 +11,21 @@ const userId = process.env.USER_ID
 const PORT = 3000
 
 const app = express();
+const bot = new TelegramBot(TOKEN, {webHook: {
+    port: 443
+}});
+
+app.use(express.json())
 
 app.post(`/api/${TOKEN}`, (req, res) =>{
     bot.processUpdate(req.body);
     res.sendStatus(200);
 });
 
-app.listen(PORT, () => console.log('SERVER STARTED ON PORT ' + PORT))
-
-const bot = new TelegramBot(TOKEN);
-bot.setWebHook(`${URL}/api/${TOKEN}`)
+app.listen(PORT, () => {
+    console.log('SERVER STARTED ON PORT ' + PORT)
+    bot.setWebHook(`${URL}/api/${TOKEN}`)
+})
 
 cron.schedule('30 * * * *', async () => {
     try {
