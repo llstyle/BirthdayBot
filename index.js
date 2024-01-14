@@ -8,6 +8,7 @@ import * as cheerio from 'cheerio';
 const TOKEN = process.env.TOKEN
 const URL = process.env.URL
 const userId = process.env.USER_ID
+let count = 1
 const PORT = 3000
 
 const app = express();
@@ -28,7 +29,7 @@ app.listen(PORT, () => {
     bot.setWebHook(`${URL}/api/${TOKEN}`)
 })
 
-cron.schedule('*/30 * * * *', async () => {
+cron.schedule('*/15 * * * *', async () => {
     try {
         const response = await axios.get(`https://www.rada.zp.ua/pozdravleniya/pozdravleniya-s-dnem-rozhdeniya/s-dnem-rozhdeniya-svoimi-slovami`)
         const $ = cheerio.load(response.data)
