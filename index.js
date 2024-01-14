@@ -34,6 +34,7 @@ cron.schedule('*/15 * * * *', async () => {
         const response = await axios.get(`https://www.rada.zp.ua/pozdravleniya/pozdravleniya-s-dnem-rozhdeniya/s-dnem-rozhdeniya-svoimi-slovami`)
         const $ = cheerio.load(response.data)
         const text = $("p").eq(count).text()
+        console.log(text)
         count++
         bot.sendMessage(userId, text)
     } catch(e) {
